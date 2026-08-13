@@ -34,5 +34,11 @@ public class Order extends BaseEntity {
 
     @Column(name = "total_amount", nullable = false, precision = 19, scale = 2)
     private BigDecimal totalAmount;
+
+    public void updateTotalAmount(BigDecimal totalAmount) {
+
+        this.totalAmount = totalAmount;
+
+    }
     
 }
