@@ -9,13 +9,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.context.annotation.Import;
 
+import com.flowforge.order.config.JpaConfig;
 import com.flowforge.order.entity.Order;
 import com.flowforge.order.entity.OrderItem;
 import com.flowforge.order.enums.OrderStatus;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(JpaConfig.class)
 class OrderItemRepositoryTest {
 
     @Autowired

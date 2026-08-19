@@ -9,5 +9,4 @@ import com.flowforge.order.entity.Order;
 public interface OrderRepository extends JpaRepository <Order, UUID> {
 
     
-    
 }

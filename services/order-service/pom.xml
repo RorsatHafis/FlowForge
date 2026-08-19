@@ -65,9 +65,16 @@
              DATABASE MIGRATIONS
              Flyway keeps schema changes version-controlled.
              ===================================================== -->
+        <!--
+             flyway-core alone is NOT enough on Spring Boot 4 — the
+             autoconfiguration that actually RUNS Flyway at startup moved
+             into its own module. Without this starter, flyway-core sits on
+             the classpath fully functional as a library but nothing ever
+             calls it: no crash, no log output, just silent no-op.
+        -->
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
         </dependency>
 
         <dependency>

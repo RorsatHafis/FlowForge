@@ -3,6 +3,7 @@ package com.flowforge.order.service.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.flowforge.order.client.ItemClient;
 import com.flowforge.order.entity.Order;
 import com.flowforge.order.enums.OrderStatus;
+import com.flowforge.order.outbox.OutboxService;
 import com.flowforge.order.repository.OrderItemRepository;
 import com.flowforge.order.repository.OrderRepository;
 import com.flowforge.order.service.CreateOrderCommand;
@@ -36,6 +38,9 @@ class OrderServiceImplTest {
 
     @Mock
     private ItemClient itemClient;
+
+    @Mock
+    private OutboxService outboxService;
 
     @InjectMocks
     private OrderServiceImpl orderService;
@@ -100,6 +105,14 @@ class OrderServiceImplTest {
 
         verify(orderItemRepository)
                 .saveAll(anyList());
+
+        verify(outboxService, times(1))
+                .record(
+                        eq("ORDER"),
+                        eq(result.getId()),
+                        eq("OrderCreated"),
+                        any()
+                );
 
     }
 
